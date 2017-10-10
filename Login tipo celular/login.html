@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+    Author: Erick Alvarez
+-->
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="JSON-js/json2.js"></script>
+
+        <title>
+            Tarea #1
+        </title>
+
+        <style>
+
+            .center {
+                margin: auto;
+                width: 20%;
+                border:2px solid #000000;
+                padding: 2%;
+                text-align:center;
+            }
+
+            .inputIcon { 
+                padding:6px 15px 6px 30px;
+                margin:3px; 
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="center">
+            <table width="100%">
+                <td>
+                    <hr/>
+                </td>
+                <td style="width:1px; padding: 0 10px; white-space: nowrap;">
+                    Login
+                </td>
+                <td>
+                    <hr/>
+                </td>
+            </table>
+
+            <div>
+                <input type="text" class="inputIcon" style="background: url('./email.png') no-repeat 8px 6px;" placeholder="Email">
+            </div>
+
+            <div>
+                <input type="password" class="inputIcon" style="background: url('./password.png') no-repeat 8px 6px;" placeholder="Password">
+            </div>
+
+            <canvas id="canvas_field"></canvas>
+            <br>
+            <div>
+                <input id="login_btn" type="button" value="Log in"/>
+                <p id="pattern_box"></p>
+            </div>
+        </div>
+
+        <script>
+            
+            var canvas = document.getElementById('canvas_field');
+            var circle_context = canvas.getContext('2d');
+            var line_context = canvas.getContext('2d');
+
+            var radius = canvas.width * .1;
+            if (canvas.width > canvas.height){
+                radius = canvas.height*.1;
+            }
+
+            var circles = [];
+
+            var Circle = function(x, y, radius, fillcolor, id) {
+                this.id = id;
+                this.left = x - radius;
+                this.top = y - radius;
+                this.right = x + radius;
+                this.bottom = y + radius;
+                this.radius = radius;
+                this.fillcolor = fillcolor;
+            };
+
+            var drawCircle = function (circle_context, x, y, fillcolor, radius, circles, id) {
+                circle_context.beginPath();
+                circle_context.arc(x, y, radius, 0, 2 * Math.PI, 0);
+                circle_context.fillStyle = fillcolor;
+                circle_context.fill();
+
+                var circle = new Circle(x, y, radius, fillcolor, id);
+                circles.push(circle);  
+            };
+
+            var drawLine = function (line_context, patterns){
+                var patterns = patterns.replace(' ','');
+                var patterns_id = patterns.split(',');
+
+                if (patterns_id.length >= 2){
+                    
+                    for (var i = 0; i <= patterns_id.length; i++){
+
+                        if (patterns_id[i + 1] !== undefined){
+
+                            var selected_pattern = patterns_id[i] - 1;
+                            var next_pattern = patterns_id[i + 1] - 1;
+
+                            var radius = circles[selected_pattern]['radius'];
+                            var x_from = circles[selected_pattern]['right'] - radius; 
+                            var y_from = circles[selected_pattern]['bottom'] - radius; 
+
+                            var x_to = circles[next_pattern]['right'] - radius; 
+                            var y_to = circles[next_pattern]['bottom'] - radius; 
+
+                            line_context.beginPath();
+
+                            line_context.moveTo(x_from, y_from);
+                            line_context.lineTo(x_to, y_to);
+
+                            // Style..
+                            line_context.strokeStyle = '#BDBDBD';
+                            line_context.lineWidth = 5;
+                            line_context.lineCap = 'round';
+
+                            line_context.stroke();
+                        }
+                    }
+                }
+            } 
+
+            var x_inc = .25;
+            var y_inc = .25;
+
+            for(var i = 0; i < 9; i++){
+                // alert('step');
+                var x = canvas.width * x_inc;
+                var y = canvas.height * y_inc;
+
+                drawCircle(circle_context, x, y, "#2E9AFE", radius, circles, i + 1);
+
+                if (x_inc >= .75){
+                    y_inc += .25;
+                    x_inc = .25
+                }else{
+                    x_inc += .25;
+                }
+            }
+
+
+            var patterns_used = 4;
+            $('#canvas_field').click(function (e) {
+                var clickedX = e.pageX - this.offsetLeft;
+                var clickedY = e.pageY - this.offsetTop;
+                                
+                for (var i = 0; i < circles.length; i++) {
+                    if (clickedX < circles[i].right && clickedX > circles[i].left 
+                        && clickedY > circles[i].top && clickedY < circles[i].bottom) {
+                        //For debug purposes..
+                        //var json_data = JSON.stringify(circles[i]);
+                        //alert (json_data);
+                         
+                        var old_record_value = $('#pattern_box').text();
+
+                        var new_record_value = "";
+                        var circle_id = circles[i]['id'];
+                    
+                        if (patterns_used > 0){
+                            if (old_record_value.indexOf(circle_id) >= 0){
+                                alert("Can't select a selected pattern :/");
+                            }else{
+                                if (old_record_value.length == 0){
+                                    new_record_value =  circle_id;
+                                }else{
+                                    new_record_value = old_record_value + ', ' + circle_id;
+                                }
+                                $('#pattern_box').text(new_record_value);
+
+                                patterns_used --;
+                                drawLine(line_context, new_record_value);
+                            }
+                        }else{
+                            alert('No more patterns to select allowed :/');
+                        }
+                    }
+                }
+            });
+
+            $(function(){
+                $("#login_btn").click(function() {
+                    location.reload();
+                });
+            });
+
+        </script>
+    </body>
+</html>
