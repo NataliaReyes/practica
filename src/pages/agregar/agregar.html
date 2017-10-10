@@ -1,0 +1,25 @@
+<ion-header>
+        <ion-navbar color="dark">
+          <ion-buttons start>
+            <button ion-button icon-only (click)="log();">
+              <ion-icon name="contact"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title> Agregar pelicula</ion-title> 
+          
+        </ion-navbar>
+      </ion-header>
+
+      <ion-card>
+            <form>
+                              <ion-label>Nombre</ion-label>
+                              <ion-input type="text" name="name"></ion-input>
+                              <ion-label>Ficha tecnica</ion-label>
+                              <ion-input type="email" name="email"></ion-input>
+                              <ion-label>Descripcion</ion-label>
+                              <ion-input type="password" name="pass"></ion-input>
+                              <ion-label>Adjuntar foto</ion-label>
+                              
+                              <button ion-button full >Agregar pelicula</button>
+            </form>
+        </ion-card>  

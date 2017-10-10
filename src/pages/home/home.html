@@ -1,0 +1,110 @@
+<ion-header>
+    <ion-navbar color="dark">
+      
+      <ion-buttons start>
+          <button ion-button icon-only menuToggle>
+            <ion-icon name="menu">
+            </ion-icon>
+         
+          </button>
+    </ion-buttons>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="log();">
+          <ion-icon name="contact"></ion-icon>
+        </button>
+      </ion-buttons>
+      
+  <ion-title> Peliculas de terror </ion-title> 
+     
+    </ion-navbar>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let item of items">
+        {{ item }}
+      </ion-item>
+    </ion-list>
+  </ion-header>
+  
+  
+
+
+  <ion-content padding>
+<ion-card>
+  <img src="../../assets/graphics/insidious.jpg"/>
+    <ion-card-content>
+  <ion-card-title>
+      
+    Insidious
+  </ion-card-title>
+<p>
+      Josh (Patrick Wilson), su esposa Renai (Rose Byrne) y sus tres hijos acaban de mudarse a una vieja casa. Pero, tras un desgraciado accidente, uno de los niños entra en coma y, al mismo tiempo, empiezan a producirse en la casa extraños fenómenos que aterrorizan a la familia.
+</p>
+  <button ion-button (click)="load();">Ver mas</button>
+    </ion-card-content>
+</ion-card>
+
+<ion-card>
+    <img src="../../assets/graphics/theothers.jpg" />
+    
+     <ion-card-content>
+       
+         <ion-card-title>
+           The others
+         </ion-card-title>
+      
+         <p>
+            Isla de Jersey, 1945. La II Guerra Mundial ha terminado, pero el marido de Grace no vuelve. Sola en un aislado caserón victoriano, educa a sus hijos dentro de rígidas normas religiosas. Los niños sufren una extraña enfermedad: no pueden recibir directamente la luz del día.
+         </p>
+         <button ion-button (click)="peothers();">Ver mas</button>
+     </ion-card-content>
+     </ion-card>
+
+     <ion-card>
+     <img src="../../assets/graphics/thecrazies.jpg" />
+
+      <ion-card-content>
+        
+          <ion-card-title>
+            The crazies
+          </ion-card-title>
+       
+          <p>
+              Una misteriosa toxina en el agua convierte a cualquiera que esté expuesto a ella en un asesino sin escrúpulos. Los residentes de un pequeño pueblo agrícola empiezan a sucumbir a un desenfreno incontrolable de violencia y la escalofriante masacre acaba en una sanguinaria anarquía.
+          </p>
+          <button ion-button (click)="pecrazies();">Ver mas</button>
+      </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+      <img src="../../assets/graphics/poltergeist.png" />
+
+       <ion-card-content>
+         
+           <ion-card-title>
+             Poltergeist
+           </ion-card-title>
+        
+           <p>
+              Cuenta la historia de una familia que, tras mudarse a una nueva casa, se ve azotada por los espíritus de los que la habitaron en el pasado. El foco del ataque sobrenatural se centra en la hija más pequeña del matrimonio. Remake del clásico de 1982.
+           </p>
+           <button ion-button (click)="pepolter();">Ver mas</button>
+       </ion-card-content>
+       </ion-card>
+
+
+       <ion-card>
+          <img src="../../assets/graphics/It.jpg" />
+    
+           <ion-card-content>
+             
+               <ion-card-title>
+                It
+               </ion-card-title>
+            
+               <p>
+                  Un tranquilo y pequeño pueblo de Maine está siendo aterrorizado por una fuerza malévola oculta tras la máscara de un payaso, y que tan sólo se la conoce como "It".
+               </p>
+               <button ion-button (click)="Peit();">Ver mas</button>
+           </ion-card-content>
+           </ion-card>
+  </ion-content> 

@@ -1,0 +1,2 @@
+Este proyecto es una pagina hecha en ionic, como es demaciado grande (anque la comprima)
+solo se vera la parte de src.
